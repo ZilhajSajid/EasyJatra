@@ -1,0 +1,98 @@
+[
+  {
+    "id": "1",
+    "user_email": "john.doe@example.com",
+    "userName": "John Doe",
+    "travel_email": "support@easyjatra.com",
+    "ratings": 4.5,
+    "review": "Booking was quick and hassle-free. Loved the interface!",
+    "ticket_id": "tkt101",
+    "departure_email": "departure1@easyjatra.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/men/10.jpg",
+    "date": "2025-12-01T10:15:00.000Z"
+  },
+  {
+    "id": "2",
+    "user_email": "jane.smith@example.com",
+    "userName": "Jane Smith",
+    "travel_email": "support@easyjatra.com",
+    "ratings": 3.8,
+    "review": "The booking took a bit longer than expected, but overall okay.",
+    "ticket_id": "tkt102",
+    "departure_email": "departure2@easyjatra.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/women/25.jpg",
+    "date": "2025-12-03T15:30:00.000Z"
+  },
+  {
+    "id": "3",
+    "user_email": "alex.brown@example.com",
+    "userName": "Alex Brown",
+    "travel_email": "support@easyjatra.com",
+    "ratings": 5.0,
+    "review": "Excellent experience! Fast booking and easy payment.",
+    "ticket_id": "tkt103",
+    "departure_email": "departure3@easyjatra.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/men/34.jpg",
+    "date": "2025-12-05T08:50:00.000Z"
+  },
+  {
+    "id": "4",
+    "user_email": "lisa.white@example.com",
+    "userName": "Lisa White",
+    "travel_email": "support@easyjatra.com",
+    "ratings": 4.2,
+    "review": "Very smooth and professional booking experience.",
+    "ticket_id": "tkt104",
+    "departure_email": "departure4@easyjatra.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/women/12.jpg",
+    "date": "2025-12-06T12:20:00.000Z"
+  },
+  {
+    "id": "5",
+    "user_email": "david.lee@example.com",
+    "userName": "David Lee",
+    "travel_email": "support@easyjatra.com",
+    "ratings": 2.9,
+    "review": "Booking failed once and no updates were given. Disappointed.",
+    "ticket_id": "tkt105",
+    "departure_email": "departure5@easyjatra.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/men/19.jpg",
+    "date": "2025-12-07T17:40:00.000Z"
+  },
+  {
+    "id": "6",
+    "user_email": "nina.khan@example.com",
+    "userName": "Nina Khan",
+    "travel_email": "support@easyjatra.com",
+    "ratings": 4.9,
+    "review": "Superb platform! Highly recommended for travelers.",
+    "ticket_id": "tkt106",
+    "departure_email": "departure6@easyjatra.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/women/8.jpg",
+    "date": "2025-12-08T09:00:00.000Z"
+  },
+  {
+    "id": "7",
+    "user_email": "michael.jordan@example.com",
+    "userName": "Michael Jordan",
+    "travel_email": "support@easyjatra.com",
+    "ratings": 3.3,
+    "review": "Decent service but website could be faster.",
+    "ticket_id": "tkt107",
+    "departure_email": "departure7@easyjatra.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/men/22.jpg",
+    "date": "2025-12-09T14:25:00.000Z"
+  },
+  {
+    "id": "8",
+    "user_email": "emma.watson@example.com",
+    "userName": "Emma Watson",
+    "travel_email": "support@easyjatra.com",
+    "ratings": 4.7,
+    "review": "Fast, safe, and user-friendly ticket booking experience.",
+    "ticket_id": "tkt108",
+    "departure_email": "departure8@easyjatra.com",
+    "user_photoURL": "https://randomuser.me/api/portraits/women/5.jpg",
+    "date": "2025-12-10T11:45:00.000Z"
+  }
+]
