@@ -6,6 +6,7 @@ import SocialLogin from "../SocialLogin/SocialLogin";
 
 const Login = () => {
   const location = useLocation();
+
   const navigate = useNavigate();
 
   const {
@@ -20,6 +21,7 @@ const Login = () => {
     signInUser(data.email, data.password)
       .then((result) => {
         console.log(result);
+        navigate(location?.state || "/");
       })
       .catch((error) => {
         console.log(error);

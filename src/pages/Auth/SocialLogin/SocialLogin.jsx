@@ -4,12 +4,16 @@ import useAuth from "../../../hooks/useAuth";
 
 const SocialLogin = () => {
   const location = useLocation();
+
   const navigate = useNavigate();
 
   const { signInWithGoogle } = useAuth();
   const handleSignIn = () => {
     signInWithGoogle()
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log(result);
+        navigate(location?.state || "/");
+      })
       .catch((error) => {
         console.log(error);
       });

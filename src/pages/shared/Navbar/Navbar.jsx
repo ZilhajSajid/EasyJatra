@@ -21,6 +21,9 @@ const Navbar = () => {
       <li>
         <NavLink>About Us</NavLink>
       </li>
+      <li>
+        <NavLink to="/vendor">Register as Vendor</NavLink>
+      </li>
     </>
   );
   return (
