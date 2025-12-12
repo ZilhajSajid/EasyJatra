@@ -1,9 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
+import axios from "axios";
 
 const Register = () => {
-  const { registerUser } = useAuth();
+  const { registerUser, updateUserProfile } = useAuth();
   const {
     register,
     handleSubmit,
@@ -11,10 +12,29 @@ const Register = () => {
   } = useForm();
 
   const handleRegister = (data) => {
-    console.log("after register", data);
+    console.log("after register", data.photo[0]);
+    const profileImg = data.photo[0];
     registerUser(data.email, data.password)
       .then((result) => {
         console.log(result);
+        const formData = new FormData();
+        formData.append("image", profileImg);
+        const img_API_URL = `https://api.imgbb.com/1/upload?key=${
+          import.meta.env.VITE_Photo_host
+        }`;
+        axios.post(img_API_URL, formData).then((res) => {
+          console.log("after image upload", res.data);
+          const photoURL = res.data.data.url;
+          const userProfile = {
+            displayName: data.name,
+            photoURL: photoURL,
+          };
+          updateUserProfile(userProfile)
+            .then(() => {
+              console.log("user profile update done");
+            })
+            .catch((error) => console.log(error));
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -57,7 +77,7 @@ const Register = () => {
               type="file"
               {...register("photo", { required: true })}
               className="file-input"
-              placeholder="Your Photo"
+              placeholder="Upload Your Photo"
             />
             {errors.photo?.type === "required" && (
               <p className="text-red-500">Photo is required</p>
