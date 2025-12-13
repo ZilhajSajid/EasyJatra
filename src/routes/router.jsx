@@ -6,6 +6,7 @@ import Register from "../pages/Auth/Register/Register";
 import Home from "../pages/Home/Home/Home";
 import PrivateRoute from "./PrivateRoute";
 import Vendor from "../pages/Vendor/Vendor";
+import BuyTickets from "../pages/BuyTickets.jsx/BuyTickets";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Vendor></Vendor>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "buy-tickets",
+        element: (
+          <PrivateRoute>
+            <BuyTickets></BuyTickets>
           </PrivateRoute>
         ),
       },

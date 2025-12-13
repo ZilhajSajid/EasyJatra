@@ -22,6 +22,9 @@ const Navbar = () => {
         <NavLink>About Us</NavLink>
       </li>
       <li>
+        <NavLink to="/buy-tickets">Buy Tickets</NavLink>
+      </li>
+      <li>
         <NavLink to="/vendor">Register as Vendor</NavLink>
       </li>
     </>
