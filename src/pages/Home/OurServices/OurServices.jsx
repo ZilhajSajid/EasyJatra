@@ -56,10 +56,13 @@ const OurServices = () => {
           single day.
         </p>
       </div>
-      <div className="grid grid-cols-3 mx-auto gap-5">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 mx-auto gap-5 justify-items-center">
         {cards.map((card) => (
-          <div key={card.id} className="card bg-base-100 w-96 shadow-sm">
-            <figure className="px-10 pt-10">
+          <div
+            key={card.id}
+            className="card bg-base-100 w-full max-w-sm flex flex-col shadow-md"
+          >
+            <figure className="px-6 pt-6">
               <img
                 src={ourServices}
                 alt="Shoes"

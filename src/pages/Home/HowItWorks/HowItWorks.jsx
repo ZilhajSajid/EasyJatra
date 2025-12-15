@@ -9,7 +9,7 @@ const HowItWorks = () => {
       <h2 className="font-extrabold text-3xl text-center text-primary">
         How It Works
       </h2>
-      <div className="flex gap-6">
+      <div className="lg:flex gap-6">
         <div className="card bg-base-100 w-96 shadow-sm">
           <div className="card-body">
             <img className="w-10" src={icon1} alt="bookingIcon" />
