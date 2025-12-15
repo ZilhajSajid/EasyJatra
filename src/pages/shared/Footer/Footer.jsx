@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "../../../components/Logo/Logo";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
@@ -17,7 +18,9 @@ const Footer = () => {
           <h6 className="footer-title">Quick Links</h6>
           <a className="link link-hover">All tickets</a>
           <a className="link link-hover">Contact</a>
-          <a className="link link-hover">About</a>
+          <Link to="about-us" className="link link-hover">
+            About
+          </Link>
         </nav>
         <nav>
           <h6 className="footer-title">Contact Info</h6>

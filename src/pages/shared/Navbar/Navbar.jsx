@@ -19,7 +19,7 @@ const Navbar = () => {
         <NavLink>All Tickets</NavLink>
       </li>
       <li>
-        <NavLink>About Us</NavLink>
+        <NavLink to="about-us">About Us</NavLink>
       </li>
       <li>
         <NavLink to="/buy-tickets">Buy Tickets</NavLink>

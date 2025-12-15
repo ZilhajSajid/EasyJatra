@@ -4,6 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const location = useLocation();
@@ -23,6 +24,7 @@ const Register = () => {
     registerUser(data.email, data.password)
       .then((result) => {
         console.log(result);
+        toast("Registered successfully");
         const formData = new FormData();
         formData.append("image", profileImg);
         const img_API_URL = `https://api.imgbb.com/1/upload?key=${
@@ -45,6 +47,7 @@ const Register = () => {
       })
       .catch((error) => {
         console.log(error);
+        toast(error.message || "Registration failed, Please try again");
       });
   };
   return (
