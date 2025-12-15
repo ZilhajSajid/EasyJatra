@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useLoaderData } from "react-router";
 import TicketForm from "./TicketForm";
 
@@ -8,15 +8,19 @@ const BuyTickets = () => {
   const regionsDuplicate = locations.map((r) => r.region);
   const regions = [...new Set(regionsDuplicate)];
 
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const minDepartureTime = tomorrow.toISOString().slice(0, 16);
+
   const {
     register,
-    watch,
     handleSubmit,
-
+    control,
     formState: { errors },
   } = useForm();
 
-  const journeyType = watch("journeyType");
+  const journeyType = useWatch({ control, name: "journeyType" });
+  const transportType = useWatch({ control, name: "transportType" });
 
   const handleBuyTickets = (data) => {
     console.log(data);
@@ -32,20 +36,22 @@ const BuyTickets = () => {
             <label className="label mr-4">
               <input
                 type="radio"
-                {...register("journeyType")}
+                {...register("journeyType", {
+                  required: "Please select journey type",
+                })}
                 value="one-way"
                 className="radio"
-                defaultChecked
               />
               One Way
             </label>
             <label className="label">
               <input
                 type="radio"
-                {...register("journeyType")}
+                {...register("journeyType", {
+                  required: "Please select journey type",
+                })}
                 value="two-way"
                 className="radio"
-                defaultChecked
               />
               Two way
             </label>
@@ -53,21 +59,25 @@ const BuyTickets = () => {
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Transport Type</legend>
               <select
-                {...register("transportType")}
-                defaultValue="Pick a Transport"
+                {...register("transportType", {
+                  required: "Please Select a Transport type",
+                })}
+                defaultValue=""
                 className="select"
               >
-                <option disabled={true}>Pick a Transport</option>
-                <option>Bus</option>
-                <option>Train</option>
-                <option>Air</option>
+                <option value="" disabled={true}>
+                  Pick a Transport
+                </option>
+                <option value="Bus">Bus</option>
+                <option value="Train">Train</option>
+                <option value="Air">Air</option>
               </select>
             </fieldset>
             {/* Class */}
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Class</legend>
               <select
-                {...register("class")}
+                {...register("class", { required: true })}
                 defaultValue="Pick a Class"
                 className="select"
               >
@@ -83,7 +93,7 @@ const BuyTickets = () => {
               <TicketForm
                 regions={regions}
                 register={register}
-                watch={watch}
+                control={control}
                 errors={errors}
               ></TicketForm>
             </div>
@@ -141,7 +151,7 @@ const BuyTickets = () => {
               <label className="label">Name</label>
               <input
                 type="text"
-                {...register("name")}
+                {...register("name", { required: true })}
                 className="input"
                 placeholder="Your Name"
               />
@@ -149,7 +159,7 @@ const BuyTickets = () => {
               <label className="label">Email</label>
               <input
                 type="email"
-                {...register("email")}
+                {...register("email", { required: true })}
                 className="input"
                 placeholder="Your Email"
               />
@@ -159,7 +169,7 @@ const BuyTickets = () => {
                 <label className="label">
                   <input
                     type="radio"
-                    {...register("gender")}
+                    {...register("gender", { required: true })}
                     value="male"
                     className="radio"
                     defaultChecked
@@ -169,7 +179,7 @@ const BuyTickets = () => {
                 <label className="label">
                   <input
                     type="radio"
-                    {...register("gender")}
+                    {...register("gender", { required: true })}
                     value="female"
                     className="radio"
                     defaultChecked
@@ -179,7 +189,7 @@ const BuyTickets = () => {
                 <label className="label">
                   <input
                     type="radio"
-                    {...register("gender")}
+                    {...register("gender", { required: true })}
                     value="other"
                     className="radio"
                     defaultChecked
@@ -204,22 +214,150 @@ const BuyTickets = () => {
                 <h2>Phone Number</h2>
                 <input
                   type="number"
-                  {...register("phone")}
+                  {...register("phone", { required: true })}
                   className="input"
                   placeholder="Phone Number"
                 />
                 <h2>NID</h2>
                 <input
                   type="number"
-                  {...register("nid")}
+                  {...register("nid", { required: true })}
                   className="input"
                   placeholder="NID"
                 />
               </div>
             </fieldset>
           </div>
-          <div>{/* ticket info LEFT side */}</div>
-          <div>{/* Pricing RIGHT side */}</div>
+          {/* ticket info LEFT side */}
+          <div>
+            <div>
+              <h2 className="text-xl font-bold mb-3">Ticket Info</h2>
+
+              {/* BUS */}
+              {transportType === "Bus" && (
+                <div className="gap-4 flex flex-col">
+                  <div>
+                    <h2>Seat Number</h2>
+                    <label>
+                      <select
+                        {...register("seatNumber", { required: true })}
+                        className="select select-bordered w-full max-w-xs"
+                        defaultValue=""
+                      >
+                        <option value="" disabled>
+                          Pick a number
+                        </option>
+
+                        {[...Array(64)].map((_, i) => (
+                          <option key={i + 1} value={i + 1}>
+                            {i + 1}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+
+                  <div>
+                    <h2>Coach Number</h2>
+                    <label>
+                      <input
+                        {...register("coachNumber")}
+                        type="text"
+                        className="input"
+                        placeholder="Coach No"
+                      />
+                    </label>
+                  </div>
+                </div>
+              )}
+
+              {/* TRAIN */}
+              {transportType === "Train" && (
+                <div className="flex flex-col gap-4">
+                  <h2>Coach Number</h2>
+                  <label>
+                    <input
+                      {...register("coachNumber", {
+                        required: "Coach number is required",
+                      })}
+                      type="text"
+                      className="input"
+                      placeholder="e.g. B"
+                    />
+                  </label>
+                  <h2>Seat Number</h2>
+                  <label>
+                    <select
+                      {...register("seatNumber", { required: true })}
+                      className="select select-bordered w-full max-w-xs"
+                      defaultValue=""
+                    >
+                      <option value="" disabled>
+                        Pick a number
+                      </option>
+
+                      {[...Array(64)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+              )}
+
+              {/* AIR */}
+              {transportType === "Air" && (
+                <div className="flex flex-col gap-4">
+                  <h2>Seat Number</h2>
+                  <label>
+                    <select
+                      {...register("seatNumber", { required: true })}
+                      className="select select-bordered w-full max-w-xs"
+                      defaultValue=""
+                    >
+                      <option value="" disabled>
+                        Pick a number
+                      </option>
+
+                      {[...Array(64)].map((_, i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <h2>Flight Num</h2>
+                  <label>
+                    <input
+                      {...register("flightNum", { required: true })}
+                      className="input input-bordered w-full max-w-xs"
+                      defaultValue=""
+                    ></input>
+                  </label>
+                </div>
+              )}
+            </div>
+            <h2>Departure Date & Time</h2>
+            <p className="text-green-500">
+              Arrive 30 minutes before departure time
+            </p>
+            <label>
+              <input
+                type="datetime-local"
+                {...register("departureTime", {
+                  required: "Departure time is required",
+                  validate: (value) =>
+                    new Date(value) >= new Date(minDepartureTime) ||
+                    "Departure time must be at least 1 day ahead",
+                })}
+                min={minDepartureTime}
+                className="input input-bordered w-full max-w-xs"
+              />
+            </label>
+          </div>
+          {/* Pricing RIGHT side */}
+          <div></div>
         </div>
         <input type="submit" value="Buy Ticket" className="btn btn-primary" />
       </form>

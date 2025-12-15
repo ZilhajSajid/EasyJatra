@@ -1,6 +1,8 @@
-const TicketForm = ({ regions, register, watch, errors }) => {
-  const from = watch("from");
-  const to = watch("to");
+import { useWatch } from "react-hook-form";
+
+const TicketForm = ({ regions, register, control, errors }) => {
+  const from = useWatch({ control, name: "from" });
+  const to = useWatch({ control, name: "to" });
   return (
     <div className="grid grid-cols-2 gap-4">
       {/* FROM */}
@@ -8,6 +10,7 @@ const TicketForm = ({ regions, register, watch, errors }) => {
         <legend className="fieldset-legend">Departure Location</legend>
         <select
           className="select"
+          defaultValue=""
           {...register("from", {
             required: "Departure Location is Required",
             validate: (value) =>
@@ -34,6 +37,7 @@ const TicketForm = ({ regions, register, watch, errors }) => {
               value !== from || "Departure and Destination cannot be the same",
           })}
           className="select"
+          defaultValue=""
         >
           <option value="" disabled>
             Set Location
