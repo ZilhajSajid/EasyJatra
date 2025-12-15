@@ -32,6 +32,7 @@ export const router = createBrowserRouter([
             <BuyTickets></BuyTickets>
           </PrivateRoute>
         ),
+        loader: () => fetch("/location.json").then((res) => res.json()),
       },
     ],
   },

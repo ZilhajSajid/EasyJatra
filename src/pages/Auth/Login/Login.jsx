@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const location = useLocation();
@@ -21,10 +22,12 @@ const Login = () => {
     signInUser(data.email, data.password)
       .then((result) => {
         console.log(result);
+        toast("Logged in Successfully");
         navigate(location?.state || "/");
       })
       .catch((error) => {
         console.log(error);
+        toast(error.message || "Login failed, Pease try again");
       });
   };
   return (
