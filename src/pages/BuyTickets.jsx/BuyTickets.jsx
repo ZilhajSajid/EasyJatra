@@ -229,10 +229,9 @@ const BuyTickets = () => {
             </fieldset>
           </div>
           {/* ticket info LEFT side */}
-          <div>
+          <div className="grid grid-cols-1 lg:grid-cols-2">
             <div>
               <h2 className="text-xl font-bold mb-3">Ticket Info</h2>
-
               {/* BUS */}
               {transportType === "Bus" && (
                 <div className="gap-4 flex flex-col">
@@ -337,26 +336,30 @@ const BuyTickets = () => {
                   </label>
                 </div>
               )}
+              <h2>Departure Date & Time</h2>
+              <p className="text-green-500">
+                Arrive 30 minutes before departure time
+              </p>
+              <label>
+                <input
+                  type="datetime-local"
+                  {...register("departureTime", {
+                    required: "Departure time is required",
+                    validate: (value) =>
+                      new Date(value) >= new Date(minDepartureTime) ||
+                      "Departure time must be at least 1 day ahead",
+                  })}
+                  min={minDepartureTime}
+                  className="input input-bordered w-full max-w-xs"
+                />
+              </label>
             </div>
-            <h2>Departure Date & Time</h2>
-            <p className="text-green-500">
-              Arrive 30 minutes before departure time
-            </p>
-            <label>
-              <input
-                type="datetime-local"
-                {...register("departureTime", {
-                  required: "Departure time is required",
-                  validate: (value) =>
-                    new Date(value) >= new Date(minDepartureTime) ||
-                    "Departure time must be at least 1 day ahead",
-                })}
-                min={minDepartureTime}
-                className="input input-bordered w-full max-w-xs"
-              />
-            </label>
+            {/* Pricing RIGHT side */}
+            <div>
+              
+            </div>
           </div>
-          {/* Pricing RIGHT side */}
+
           <div></div>
         </div>
         <input type="submit" value="Buy Ticket" className="btn btn-primary" />

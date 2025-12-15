@@ -9,6 +9,7 @@ import Vendor from "../pages/Vendor/Vendor";
 import BuyTickets from "../pages/BuyTickets.jsx/BuyTickets";
 import AboutUs from "../pages/Vendor/AboutUs/AboutUs";
 import AllTickets from "../pages/AllTickets/AllTickets";
+import MyProfile from "../pages/MyProfile/MyProfile";
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +26,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "all-tickets",
-        Component: AllTickets,
+        element: (
+          <PrivateRoute>
+            <AllTickets></AllTickets>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-profile",
+        element: (
+          <PrivateRoute>
+            <MyProfile></MyProfile>
+          </PrivateRoute>
+        ),
       },
       {
         path: "vendor",

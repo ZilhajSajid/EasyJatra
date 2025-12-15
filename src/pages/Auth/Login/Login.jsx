@@ -16,7 +16,7 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const { signInUser } = useAuth();
+  const { signInUser, user, logOut } = useAuth();
 
   const handleLogin = (data) => {
     signInUser(data.email, data.password)

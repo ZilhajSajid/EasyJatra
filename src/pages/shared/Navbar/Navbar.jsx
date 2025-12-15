@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../../../components/Logo/Logo";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const [dropdown, setDropdown] = useState(false);
 
   const handleSignOut = () => {
     logOut().then().catch();
+    setDropdown(false);
   };
 
   const links = (
@@ -67,11 +69,41 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           {user ? (
-            <a onClick={handleSignOut} className="btn">
-              Sign Out
-            </a>
+            <div className="relative">
+              <div
+                className="flex items-center gap-2 cursor-pointer"
+                onClick={() => setDropdown(!dropdown)}
+              >
+                <img
+                  src={user.photoURL || "/default-avatar.png"}
+                  alt={user.displayName}
+                  className="w-10 h-10 rounded-full"
+                />
+                <span className="font-semibold">{user.displayName}</span>
+              </div>
+
+              {dropdown && (
+                <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg p-2 z-50">
+                  <Link
+                    to="/my-profile"
+                    className="block px-4 py-2 hover:bg-gray-100 rounded"
+                    onClick={() => setDropdown(false)}
+                  >
+                    My Profile
+                  </Link>
+                  <button
+                    onClick={handleSignOut}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100 rounded"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
-            <Link to="/login">Sign In</Link>
+            <Link to="/login" className="btn btn-secondary">
+              Sign In
+            </Link>
           )}
         </div>
       </div>
