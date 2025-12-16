@@ -8,8 +8,16 @@ import PrivateRoute from "./PrivateRoute";
 import Vendor from "../pages/Vendor/Vendor";
 import BuyTickets from "../pages/BuyTickets.jsx/BuyTickets";
 import AboutUs from "../pages/Vendor/AboutUs/AboutUs";
-import AllTickets from "../pages/AllTickets/AllTickets";
+
 import MyProfile from "../pages/MyProfile/MyProfile";
+import DashboardLayout from "../layouts/DashboardLayout";
+
+import Profile from "../pages/Dashboard/Common/Profile";
+import AddTickets from "../pages/Vendor/AddTickets";
+import Statistics from "../pages/Dashboard/Common/Statistics";
+import MyOrders from "../pages/Dashboard/Customer/MyOrders";
+import MyInventory from "../pages/Dashboard/Vendor/MyInventory";
+import ManageOrders from "../pages/Dashboard/Vendor/ManageOrders";
 
 export const router = createBrowserRouter([
   {
@@ -26,11 +34,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "all-tickets",
-        element: (
-          <PrivateRoute>
-            <AllTickets></AllTickets>
-          </PrivateRoute>
-        ),
+        element: <PrivateRoute></PrivateRoute>,
       },
       {
         path: "my-profile",
@@ -70,6 +74,60 @@ export const router = createBrowserRouter([
       {
         path: "register",
         Component: Register,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: (
+          <PrivateRoute>
+            <Statistics></Statistics>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "add-tickets",
+        element: (
+          <PrivateRoute>
+            <AddTickets />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-orders",
+        element: (
+          <PrivateRoute>
+            <MyOrders></MyOrders>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-inventory",
+        element: (
+          <PrivateRoute>
+            <MyInventory></MyInventory>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-orders",
+        element: <ManageOrders></ManageOrders>,
+      },
+      {
+        path: "profile",
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
     ],
   },

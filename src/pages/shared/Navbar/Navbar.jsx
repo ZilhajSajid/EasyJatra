@@ -29,10 +29,17 @@ const Navbar = () => {
       <li>
         <NavLink to="/vendor">Register as Vendor</NavLink>
       </li>
+      {user && (
+        <>
+          <li>
+            <NavLink to="dashboard">Dashboard</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
   return (
-    <div>
+    <div className="fixed top-0 left-0 w-full z-50">
       <div className="navbar bg-base-100 shadow-sm">
         <div className="navbar-start">
           <div className="dropdown">

@@ -1,15 +1,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
-import axios from "axios";
 import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { toast } from "react-toastify";
+import { imageUpload } from "../../../Utils";
 
 const Register = () => {
-  const location = useLocation();
-  console.log("in the register", location);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state || "/";
 
   const { registerUser, updateUserProfile } = useAuth();
   const {
@@ -18,37 +18,23 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const handleRegister = (data) => {
-    console.log("after register", data.photo[0]);
-    const profileImg = data.photo[0];
-    registerUser(data.email, data.password)
-      .then((result) => {
-        console.log(result);
-        toast("Registered successfully");
-        const formData = new FormData();
-        formData.append("image", profileImg);
-        const img_API_URL = `https://api.imgbb.com/1/upload?key=${
-          import.meta.env.VITE_Photo_host
-        }`;
-        axios.post(img_API_URL, formData).then((res) => {
-          console.log("after image upload", res.data);
-          const photoURL = res.data.data.url;
-          const userProfile = {
-            displayName: data.name,
-            photoURL: photoURL,
-          };
-          updateUserProfile(userProfile)
-            .then(() => {
-              console.log("user profile update done");
-              navigate(location?.state || "/");
-            })
-            .catch((error) => console.log(error));
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        toast(error.message || "Registration failed, Please try again");
-      });
+  console.log(errors);
+
+  const handleRegister = async (data) => {
+    const { name, image, email, password } = data;
+    const imageFile = image[0];
+    try {
+      const imageURL = await imageUpload(imageFile);
+      const result = await registerUser(email, password);
+
+      await updateUserProfile(name, imageURL);
+      navigate(from, { replace: true });
+      toast.success("Registration Successful");
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.message);
+    }
   };
   return (
     <div>
@@ -62,18 +48,30 @@ const Register = () => {
             {/* Name */}
             <label className="label">Name</label>
             <input
-              {...register("name", { required: true })}
+              {...register("name", {
+                required: true,
+                maxLength: {
+                  value: 30,
+                  message: "Name should be in 30 characters",
+                },
+              })}
               type="name"
               className="input"
               placeholder="Your Name"
             />
-            {errors.name?.type === "required" && (
-              <p className="text-red-500">Name is required</p>
+            {errors.name && (
+              <p className="text-red-500">{errors.name.message}</p>
             )}
             {/* email */}
             <label className="label">Email</label>
             <input
-              {...register("email", { required: true })}
+              {...register("email", {
+                required: true,
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: "Please Enter a valid email address",
+                },
+              })}
               type="email"
               className="input"
               placeholder="Email"
@@ -81,11 +79,11 @@ const Register = () => {
             {errors.email?.type === "required" && (
               <p className="text-red-500">Email is required</p>
             )}
-            {/* photo */}
-            <label className="label">Photo</label>
+            {/* image */}
+            <label className="label">Image</label>
             <input
               type="file"
-              {...register("photo", { required: true })}
+              {...register("image")}
               className="file-input"
               placeholder="Upload Your Photo"
             />
