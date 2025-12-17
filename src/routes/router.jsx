@@ -13,16 +13,18 @@ import MyProfile from "../pages/MyProfile/MyProfile";
 import DashboardLayout from "../layouts/DashboardLayout";
 
 import Profile from "../pages/Dashboard/Common/Profile";
-import AddTickets from "../pages/Vendor/AddTickets";
+import AddTickets from "../pages/Dashboard/Vendor/AddTickets";
 import Statistics from "../pages/Dashboard/Common/Statistics";
 import MyOrders from "../pages/Dashboard/Customer/MyOrders";
 import MyInventory from "../pages/Dashboard/Vendor/MyInventory";
 import ManageOrders from "../pages/Dashboard/Vendor/ManageOrders";
+import ErrorPage from "../pages/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         index: true,
