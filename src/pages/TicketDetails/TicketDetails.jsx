@@ -90,7 +90,7 @@ const TicketDetails = () => {
                 text-neutral-500
               "
               >
-                Quantity: {quantity} Units Left Only!
+                Quantity: {quantity} Seats Left Only!
               </p>
             </div>
             <hr className="my-6" />

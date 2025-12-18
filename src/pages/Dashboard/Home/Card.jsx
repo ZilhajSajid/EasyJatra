@@ -40,7 +40,7 @@ const Card = ({ ticket }) => {
         </div>
         <div className="font-semibold text-lg">{name}</div>
         <div className="font-semibold text-lg">Category: {category}</div>
-        <div className="font-semibold text-lg">Quantity: {quantity}</div>
+        <div className="font-semibold text-lg">Seats: {quantity}</div>
         <div className="flex flex-row items-center gap-1">
           <div className="font-semibold"> Price: {price} BDT</div>
         </div>
