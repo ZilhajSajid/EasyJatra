@@ -6,21 +6,31 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import LoadingSpinner from "../../../pages/shared/LoadingSpinner";
 import ErrorPage from "../../../pages/ErrorPage";
+import { toast } from "react-toastify";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const AddTicketForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   const { user } = useAuth();
 
-  const { isPending, isError, data, mutateAsync } = useMutation({
+  const {
+    isPending,
+    isError,
+    reset: mutationReset,
+    mutateAsync,
+  } = useMutation({
     mutationFn: async (payload) =>
       await axios.post(`${import.meta.env.VITE_API_URL}/tickets`, payload),
     onSuccess: (data) => {
       console.log(data);
+      toast.success("Ticket added successfully");
+      mutationReset();
     },
     onError: (error) => {
       console.log(error);
@@ -30,7 +40,7 @@ const AddTicketForm = () => {
     },
     onSettled: (data, error) => {
       if (data) {
-        console.log(data);
+        console.log("from onSettled", data);
       }
       if (error) {
         console.log(error);
@@ -59,6 +69,7 @@ const AddTicketForm = () => {
         },
       };
       await mutateAsync(ticketData);
+      reset();
     } catch (error) {
       console.log(error);
     }
@@ -209,7 +220,11 @@ const AddTicketForm = () => {
               type="submit"
               className="w-full cursor-pointer p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-blue-500 "
             >
-              Save & Continue
+              {isPending ? (
+                <TbFidgetSpinner className="animate-spin m-auto" />
+              ) : (
+                "Save & Continue"
+              )}
             </button>
           </div>
         </div>

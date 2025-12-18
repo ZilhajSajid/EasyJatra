@@ -17,9 +17,7 @@ const Navbar = () => {
       <li>
         <NavLink>Home</NavLink>
       </li>
-      <li>
-        <NavLink to="all-tickets">All Tickets</NavLink>
-      </li>
+
       <li>
         <NavLink to="about-us">About Us</NavLink>
       </li>
@@ -31,6 +29,9 @@ const Navbar = () => {
       </li>
       {user && (
         <>
+          <li>
+            <NavLink to="ticket">All Tickets</NavLink>
+          </li>
           <li>
             <NavLink to="dashboard">Dashboard</NavLink>
           </li>

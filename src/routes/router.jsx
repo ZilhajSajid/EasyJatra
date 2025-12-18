@@ -19,6 +19,10 @@ import MyOrders from "../pages/Dashboard/Customer/MyOrders";
 import MyInventory from "../pages/Dashboard/Vendor/MyInventory";
 import ManageOrders from "../pages/Dashboard/Vendor/ManageOrders";
 import ErrorPage from "../pages/ErrorPage";
+import Ticket from "../pages/Dashboard/Home/Ticket";
+import TicketDetails from "../pages/TicketDetails/TicketDetails";
+import LatestTickets from "../pages/Home/LatestTickets/LatestTickets";
+import PaymentSuccess from "../pages/Payment/PaymentSuccess";
 
 export const router = createBrowserRouter([
   {
@@ -35,8 +39,24 @@ export const router = createBrowserRouter([
         Component: AboutUs,
       },
       {
-        path: "all-tickets",
-        element: <PrivateRoute></PrivateRoute>,
+        path: "payment-success",
+        element: <PaymentSuccess></PaymentSuccess>,
+      },
+      {
+        path: "ticket",
+        element: (
+          <PrivateRoute>
+            <LatestTickets></LatestTickets>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "ticket/:id",
+        element: (
+          <PrivateRoute>
+            <TicketDetails></TicketDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "my-profile",
