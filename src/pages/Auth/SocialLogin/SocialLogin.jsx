@@ -2,17 +2,23 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import { toast } from "react-toastify";
+import { saveOrUpdateUser } from "../../../Utils";
 
 const SocialLogin = () => {
   const location = useLocation();
 
   const navigate = useNavigate();
 
-  const { signInWithGoogle } = useAuth();
+  const { signInWithGoogle, user } = useAuth();
   const handleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
         console.log(result);
+        saveOrUpdateUser({
+          name: user?.displayName,
+          email: user?.email,
+          image: user?.photoURL,
+        });
         toast("Logged in successfully");
         navigate(location?.state || "/");
       })

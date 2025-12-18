@@ -1,17 +1,18 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { toast } from "react-toastify";
-import { imageUpload } from "../../../Utils";
+import { imageUpload, saveOrUpdateUser } from "../../../Utils";
 
 const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state || "/";
 
-  const { registerUser, updateUserProfile } = useAuth();
+  const { registerUser, updateUserProfile, signInWithGoogle, user } = useAuth();
   const {
     register,
     handleSubmit,
@@ -26,6 +27,7 @@ const Register = () => {
     try {
       const imageURL = await imageUpload(imageFile);
       const result = await registerUser(email, password);
+      await saveOrUpdateUser({ name, email, image: imageURL });
 
       await updateUserProfile(name, imageURL);
       navigate(from, { replace: true });
@@ -34,6 +36,23 @@ const Register = () => {
     } catch (error) {
       console.log(error);
       toast.error(error?.message);
+    }
+  };
+  const handleGoogleSignIn = async () => {
+    try {
+      //User Registration using google
+      const { user } = await signInWithGoogle();
+      await saveOrUpdateUser({
+        name: user?.displayName,
+        email: user?.email,
+        image: user?.photoURL,
+      });
+
+      navigate(from, { replace: true });
+      toast.success("Signup Successful");
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.message);
     }
   };
   return (
@@ -134,7 +153,23 @@ const Register = () => {
             </Link>
           </p>
         </form>
-        <SocialLogin></SocialLogin>
+        <div
+          onClick={handleGoogleSignIn}
+          className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer"
+        >
+          <FcGoogle size={32} />
+
+          <p>Continue with Google</p>
+        </div>
+        <p className="px-6 text-sm text-center text-gray-400">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="hover:underline hover:text-blue-500 text-gray-600"
+          >
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );

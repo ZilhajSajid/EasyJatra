@@ -1,7 +1,23 @@
 import React from "react";
 import TicketDataRow from "../../../components/Dashboard/TableRows/TicketDataRow";
+import useAuth from "../../../hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import LoadingSpinner from "../../shared/LoadingSpinner";
 
 const MyInventory = () => {
+  const { user } = useAuth();
+  const { data: tickets = [], isLoading } = useQuery({
+    queryKey: ["inventory", user?.email],
+    queryFn: async () => {
+      const result = await axios(
+        `${import.meta.env.VITE_API_URL}/my-inventory/${user?.email}`
+      );
+      return result.data;
+    },
+  });
+
+  if (isLoading) return <LoadingSpinner></LoadingSpinner>;
   return (
     <>
       <div className="container mx-auto px-4 sm:px-8">
@@ -57,7 +73,12 @@ const MyInventory = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <TicketDataRow></TicketDataRow>
+                  {tickets.map((ticket) => (
+                    <TicketDataRow
+                      key={ticket._id}
+                      ticket={ticket}
+                    ></TicketDataRow>
+                  ))}
                 </tbody>
               </table>
             </div>
