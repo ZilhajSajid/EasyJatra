@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink } from "react-router";
 
 const MenuItem = ({ label, address, icon: Icon }) => {
@@ -13,7 +12,6 @@ const MenuItem = ({ label, address, icon: Icon }) => {
       }
     >
       <Icon className="w-5 h-5" />
-
       <span className="mx-4 font-medium">{label}</span>
     </NavLink>
   );

@@ -11,14 +11,18 @@ import { FcSettings } from "react-icons/fc";
 import { AiOutlineBars } from "react-icons/ai";
 import { BsGraphUp } from "react-icons/bs";
 import AdminMenu from "./Menu/AdminMenu";
+import useRole from "../../../hooks/useRole";
+import LoadingSpinner from "../../../pages/shared/LoadingSpinner";
 
 const Sidebar = () => {
   const { logOut } = useAuth();
   const [isActive, setActive] = useState(false);
+  const [role, isRoleLoading] = useRole();
 
   const handleToggle = () => {
     setActive(!isActive);
   };
+  if (isRoleLoading) return <LoadingSpinner />;
   return (
     <div>
       <div className="bg-gray-100 text-gray-800 flex justify-between md:hidden">
@@ -65,9 +69,9 @@ const Sidebar = () => {
                 address="/dashboard"
               />
               {/* Role-Based Menu */}
-              <CustomerMenu />
-              <VendorMenu />
-              <AdminMenu />
+              {role === "customer" && <CustomerMenu />}
+              {role === "vendor" && <VendorMenu />}
+              {role === "Admin" && <AdminMenu />}
             </nav>
           </div>
 

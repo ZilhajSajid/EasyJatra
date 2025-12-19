@@ -23,6 +23,9 @@ import Ticket from "../pages/Dashboard/Home/Ticket";
 import TicketDetails from "../pages/TicketDetails/TicketDetails";
 import LatestTickets from "../pages/Home/LatestTickets/LatestTickets";
 import PaymentSuccess from "../pages/Payment/PaymentSuccess";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
+import AdminRoute from "./AdminRoute";
+import VendorRequest from "../pages/Dashboard/Admin/VendorRequest";
 
 export const router = createBrowserRouter([
   {
@@ -136,6 +139,26 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyInventory></MyInventory>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-users",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ManageUsers></ManageUsers>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "vendor-requests",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <VendorRequest></VendorRequest>
+            </AdminRoute>
           </PrivateRoute>
         ),
       },

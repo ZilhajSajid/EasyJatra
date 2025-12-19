@@ -12,7 +12,7 @@ const Register = () => {
   const location = useLocation();
   const from = location.state || "/";
 
-  const { registerUser, updateUserProfile, signInWithGoogle, user } = useAuth();
+  const { registerUser, updateUserProfile, signInWithGoogle } = useAuth();
   const {
     register,
     handleSubmit,
