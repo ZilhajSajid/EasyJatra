@@ -26,6 +26,7 @@ import PaymentSuccess from "../pages/Payment/PaymentSuccess";
 import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
 import AdminRoute from "./AdminRoute";
 import VendorRequest from "../pages/Dashboard/Admin/VendorRequest";
+import VendorRoute from "./VendorRoute";
 
 export const router = createBrowserRouter([
   {
@@ -122,7 +123,9 @@ export const router = createBrowserRouter([
         path: "add-tickets",
         element: (
           <PrivateRoute>
-            <AddTickets />
+            <VendorRoute>
+              <AddTickets />
+            </VendorRoute>
           </PrivateRoute>
         ),
       },
@@ -138,7 +141,9 @@ export const router = createBrowserRouter([
         path: "my-inventory",
         element: (
           <PrivateRoute>
-            <MyInventory></MyInventory>
+            <VendorRoute>
+              <AddTickets />
+            </VendorRoute>
           </PrivateRoute>
         ),
       },
@@ -164,7 +169,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "manage-orders",
-        element: <ManageOrders></ManageOrders>,
+        element: (
+          <PrivateRoute>
+            <VendorRoute>
+              <ManageOrders></ManageOrders>
+            </VendorRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "profile",

@@ -1,7 +1,21 @@
 import React from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { toast } from "react-toastify";
 
 const BecomeVendorModal = ({ closeModal, isOpen }) => {
+  const axiosSecure = useAxiosSecure();
+  const handleRequest = async () => {
+    try {
+      await axiosSecure.post("/become-vendor");
+      toast.success("Request sent, Please wait for approval");
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message);
+    } finally {
+      closeModal();
+    }
+  };
   return (
     <div>
       <Dialog
@@ -31,6 +45,7 @@ const BecomeVendorModal = ({ closeModal, isOpen }) => {
               <hr className="mt-8 " />
               <div className="flex mt-2 justify-around">
                 <button
+                  onClick={handleRequest}
                   type="button"
                   className="cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-secondary hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
                 >

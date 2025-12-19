@@ -13,9 +13,9 @@ const VendorRequest = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ["seller-requests", user?.email],
+    queryKey: ["vendor-request", user?.email],
     queryFn: async () => {
-      const result = await axiosSecure(`/seller-requests`);
+      const result = await axiosSecure(`/vendor-request`);
       return result.data;
     },
   });
