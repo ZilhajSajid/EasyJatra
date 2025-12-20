@@ -48,7 +48,7 @@ const TicketDetails = () => {
             </div>
           </div>
           <div className="md:gap-10 flex-1">
-            {/* Plant Info */}
+            {/* Ticket Info */}
             <Heading title={name} subtitle={`Category: ${category}`} />
             <hr className="my-6" />
             <div

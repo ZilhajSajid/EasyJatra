@@ -8,10 +8,10 @@ const VendorRoute = ({ children }) => {
   const [role, isRoleLoading] = useRole();
   if (isRoleLoading) return <LoadingSpinner></LoadingSpinner>;
 
-  if (role === "vendor") {
+  if (role === "vendor") return children;
+  {
     return <Navigate to="/" replace="true"></Navigate>;
   }
-  return children;
 };
 
 export default VendorRoute;

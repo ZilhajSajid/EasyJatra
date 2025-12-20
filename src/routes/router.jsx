@@ -142,7 +142,7 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <VendorRoute>
-              <AddTickets />
+              <MyInventory />
             </VendorRoute>
           </PrivateRoute>
         ),

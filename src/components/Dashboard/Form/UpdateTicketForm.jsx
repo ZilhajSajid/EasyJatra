@@ -43,7 +43,7 @@ const UpdateTicketForm = () => {
 
               <textarea
                 id="description"
-                placeholder="Write plant description here..."
+                placeholder="Write ticket description here..."
                 className="block rounded-md focus:lime-300 w-full h-32 px-4 py-3 text-gray-800  border border-blue-300 bg-white focus:outline-blue-500 "
                 name="description"
               ></textarea>
@@ -108,7 +108,7 @@ const UpdateTicketForm = () => {
               type="submit"
               className="w-full cursor-pointer p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-blue-500 "
             >
-              Update Plant
+              Update Ticket
             </button>
           </div>
         </div>

@@ -2,14 +2,16 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { imageUpload } from "../../../Utils";
 import useAuth from "../../../hooks/useAuth";
-import axios from "axios";
+
 import { useMutation } from "@tanstack/react-query";
 import LoadingSpinner from "../../../pages/shared/LoadingSpinner";
 import ErrorPage from "../../../pages/ErrorPage";
 import { toast } from "react-toastify";
 import { TbFidgetSpinner } from "react-icons/tb";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AddTicketForm = () => {
+  const axiosSecure = useAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -25,8 +27,7 @@ const AddTicketForm = () => {
     reset: mutationReset,
     mutateAsync,
   } = useMutation({
-    mutationFn: async (payload) =>
-      await axios.post(`${import.meta.env.VITE_API_URL}/tickets`, payload),
+    mutationFn: async (payload) => await axiosSecure.post(`/tickets`, payload),
     onSuccess: (data) => {
       console.log(data);
       toast.success("Ticket added successfully");
