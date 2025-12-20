@@ -1,4 +1,4 @@
-# Book Haven
+# Easy Jatra
 
 **Easy Jatra** is an online platform where users can explore, add, and manage tickets. Users can browse tickets, view detailed information, and keep track of their journey. Vendors can add and update tickets. Admin can accept vendor requests and tickets
 
