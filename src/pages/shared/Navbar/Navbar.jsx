@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Logo from "../../../components/Logo/Logo";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../../hooks/useAuth";
+import ThemeToggle from "../../../components/ThemeToggle/ThemeToggle";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -71,6 +72,7 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
+          <ThemeToggle></ThemeToggle>
           {user ? (
             <div className="relative">
               <div

@@ -1,6 +1,7 @@
 import React from "react";
 import { FaUserAlt, FaDollarSign } from "react-icons/fa";
 import { BsFillCartPlusFill, BsFillHouseDoorFill } from "react-icons/bs";
+
 const CustomerStatistics = () => {
   return (
     <div>
